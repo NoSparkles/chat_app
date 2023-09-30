@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My website</title>
+  <style>
+    main{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #messages{
+      box-sizing: border-box;
+      width: 100%;
+      max-height: 60vh;
+      overflow-y: scroll;
+      word-wrap: break-word;
+      display: flex;
+      flex-direction: column-reverse;
+      padding: 0 200px;
+      border: 1px solid;
+      margin-bottom: 20px;
+    };
+  </style>
+</head>
+<body>
+  {% include 'base/navbar.html' %}
+  <main>
+    <h1>Lets chat, <span id="username">{{username}}</span></h1>
+    <div id="messages">
+    </div>
+    <form id="form" method="POST">
+      {% csrf_token %}
+      <input id="message" type="text" placeholder="message" name="message-body">
+      <button type="submit">Send</button>
+    </form>
+  </main>
+  
+
+  <script>
+    let url = `ws://${window.location.host}/ws/chat/`
+    console.log(url)
+
+    const chatSocket = new WebSocket(url)
+    const username = document.getElementById('username').textContent
+    console.log(username)
+
+    chatSocket.onmessage = (e) => {
+      let data = JSON.parse(e.data)
+      console.log('Data: ', data)
+
+      if (data.type === 'connected'){
+        let messagesDiv = document.getElementById('messages')
+        let messages = JSON.parse(data.message)
+        messages.map((message, i) => {
+          messagesDiv.insertAdjacentHTML('beforeend', `<p>${message?.username}: ${message?.body}</p>`)
+        })
+      }
+      else if(data.type === 'chat'){
+        let messagesDiv = document.getElementById('messages')
+        message = data.message
+        messagesDiv.insertAdjacentHTML('afterbegin', `<p>${message.username}: ${message.body}</p>`)
+        messagesDiv.scroll(0, messagesDiv.scrollHeight)
+      }
+    }
+      
+
+    let form = document.getElementById('form')
+    form.addEventListener('submit', (e) => {
+      e.preventDefault()
+      let message = document.getElementById('message').value
+      chatSocket.send(JSON.stringify({
+        'message': message,
+        'username': username
+      }))
+      form.reset()
+    })
+
+  </script>
+</body>
+</html>
