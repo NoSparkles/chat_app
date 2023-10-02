@@ -22,6 +22,10 @@
     {
       "src": "/(.*)",
       "dest": "core/wsgi.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "core/asgi.py"
     }
   ]
 }
