@@ -78,25 +78,11 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         "CONFIG": {
-            'hosts': [('default:2TVrLSXzBMgjd8htFv6X@containers-us-west-183.railway.app', 6850)],
+            'hosts': ['redis://default:2TVrLSXzBMgjd8htFv6X@containers-us-west-183.railway.app:6850'],
         },
     },
 }
 
-# CHANNEL_LAYERS = {
-#     'default': {
-#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
-#         "CONFIG": {
-#             'hosts': [('redis://default:2TVrLSXzBMgjd8htFv6X@containers-us-west-183.railway.app', 6850)],
-#         },
-#         'NAME': 'railway',
-#         'URL' : 'containers-us-west-183.railway.app:6850',
-#         'HOST' : 'containers-us-west-183.railway.app',
-#         'PASSWORD' : '2TVrLSXzBMgjd8htFv6X',
-#         'PORT' : '6850',
-#         'USER' : 'default'
-#     },
-# }
 
 import channels_redis.core
 channels_redis.core.RedisChannelLayer
