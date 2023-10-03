@@ -39,7 +39,7 @@
   
 
   <script>
-    let url = `wss://${window.location.host}/ws/chat/`
+    let url = `ws://${window.location.host}/ws/chat/`
     console.log(url)
     const chatSocket = new WebSocket(url)
     const username = document.getElementById('username').textContent

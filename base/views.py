@@ -43,7 +43,7 @@ def logout_page(request):
 def chat_page(request):
     if not request.user.is_authenticated:
         return redirect('index')
-    
+
     username = request.user.username
 
     return render(request, 'base/chat.html', {'username': username})
