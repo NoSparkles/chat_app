@@ -39,7 +39,8 @@ INSTALLED_APPS = [
 
     'channels',
     'base',
-    'rest_framework'
+    'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -144,5 +147,6 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-CSRF_TRUSTED_ORIGINS = ['htpps://*.up.railway.app']
+CORS_ALLOWED_ORIGINS = [
+    'https://*.up.railway.app',
+]
