@@ -26,8 +26,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['htpps://*.up.railway.app', 'htpp://*.up.railway.app']
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -145,3 +143,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CSRF_TRUSTED_ORIGINS = ['htpps://*.up.railway.app']
